@@ -18,8 +18,7 @@ setup(
     description='AAP Client',
     long_description=long_description,
 
-    # The project's main homepage.
-    url='https://github.com/pypa/sampleproject',
+    url='https://github.com/EMBL-EBI-TSI/aap-client-python',
 
     author='Pau Ruiz Safont',
     author_email='psafont@ebi.ac.uk',
@@ -57,7 +56,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['python-jose'],
+    install_requires=['pyjwt[crypto]'],
 
     setup_requires=['setuptools_scm'],
 
