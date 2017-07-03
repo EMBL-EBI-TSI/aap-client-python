@@ -13,7 +13,7 @@ def now():
 class ClaimsFactory(testdata.DictFactory):
     iat = testdata.Constant(now())
     exp = testdata.RandomInteger(int(now() + 15), int(now()*10))
-    iss = 'aap.ebi.ac.uk'
+    iss = testdata.Constant('aap.ebi.ac.uk')
     sub = testdata.Sum([testdata.Constant('usr-'), testdata.HashHexDigestFactory(hashlib.md5)])
     email = testdata.FakeDataFactory('email')
     name = testdata.FakeDataFactory('name')
