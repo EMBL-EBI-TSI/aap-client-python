@@ -1,4 +1,5 @@
 --index-url https://pypi.python.org/simple/
 
 -e git+https://github.com/psafont/pyjwt.git@require-tweak#egg=pyjwt[crypto]
+-e git+https://github.com/psafont/python-testdata.git#egg=python-testdata
 -e .
