@@ -66,7 +66,7 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
         'dev': ['check-manifest', 'future', 'python-testdata'],
-        'test': ['coverage', 'python-testdata', 'unittest2'],
+        'test': ['pytest', 'python-testdata', 'unittest2'],
     },
 )
 
