@@ -7,7 +7,7 @@ import testdata
 from aap_client.token_encoder import TokenEncoder
 from aap_client.token_decoder import TokenDecoder
 
-from payload_gen import payloadValidity
+from tests.payload_gen import payloadValidity
 
 class TokenTestCase(unittest2.TestCase):
 

@@ -10,7 +10,8 @@ class TokenDecoder:
         self._required_claims = set(required_claims).union(default_claims)
 
         with open(filename, 'r') as cert_file:
-             cert = load_pem(cert_file.read(), default_backend())
+             cert = load_pem(cert_file.read().encode(),
+                             default_backend())
              self._key = cert.public_key()
 
     def decode(self, serialized_token, audience=None):

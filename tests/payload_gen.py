@@ -1,3 +1,4 @@
+from __future__ import print_function
 import hashlib
 
 from calendar import timegm
@@ -91,4 +92,4 @@ payloadValidity = [
 
 if __name__ == '__main__':
     for payload in PayloadFactory().generate(10):
-        print payload
+        print(payload)
