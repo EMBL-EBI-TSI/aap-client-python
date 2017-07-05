@@ -13,5 +13,8 @@ class TokenDecoder:
              cert = load_pem(cert_file.read(), default_backend())
              self._key = cert.public_key()
 
-    def decode(self, serialized_token):
-        return jwt.decode(serialized_token, self._key, options={'require': self._required_claims})
+    def decode(self, serialized_token, audience=None):
+        return jwt.decode(serialized_token,
+                          self._key,
+                          audience=audience,
+                          options={'require': self._required_claims})
