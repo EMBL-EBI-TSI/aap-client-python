@@ -1,18 +1,13 @@
-from cryptography.x509 import load_pem_x509_certificate as load_pem
-from cryptography.hazmat.backends import default_backend
-
 import jwt
 
+from crypto_files import load_public_from_x509
 
 class TokenDecoder:
     def __init__(self, filename, required_claims=[]):
         default_claims = {'iat', 'exp', 'sub', 'email', 'name', 'nickname'}
         self._required_claims = set(required_claims).union(default_claims)
 
-        with open(filename, 'r') as cert_file:
-             cert = load_pem(cert_file.read().encode(),
-                             default_backend())
-             self._key = cert.public_key()
+        self._key = load_public_from_x509(filename)
 
     def decode(self, serialized_token, audience=None):
         return jwt.decode(serialized_token,
