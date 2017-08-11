@@ -1,14 +1,15 @@
 language: python
 cache: pip
 python:
-  - '2.7'
-  - '3.3'
-  - '3.4'
-  - '3.5'
-  - '3.6'
-# command to install dependencies
+- '2.7'
+- '3.3'
+- '3.4'
+- '3.5'
+- '3.6'
 install:
-  - 'pip install -r requirements.txt'
-  - 'pip install -e .[test]'
-# command to run tests
+- pip install -r requirements.txt
+- pip install -e .[test]
 script: python -m pytest
+notifications:
+  slack:
+    secure: mCbBSQRHG835byO2CHeXq38IQsk2djyyftmEvR8TjcljTFqjX8vBN8eOu9BHz42MjDxFOyEOING4BCbEU5lO1gYfV3E8onv4qCDNgO9TSzs5N46odq2z4SjXczXRrm8iLvyL07Dh0iCX8HKKuaGOZ46/IAZsUFZgxJ3YDw+DklFginZHL3mTR8mT8cgN+GAszG6xIuh1FIa3tXrfoTyt3n+6y+oGKf46GydR1NvO6I8Sltdx5gRjk/A/mlqY14ZdEiBU/O4FgcZjcxDqiFXYj6KdL2OHVEtNOaAIxbmwWRtiff66Qe4+Y/nibVPudwZv+WcI30TV9nGIdyt0XnQR+/7CaBM5OG6s/lorFdhaqV4pL2rZIwfYWYKh/1ClvswmPcHcxnFdnM4PNF2S3o4j6JaY/irknghDvlnbjwWK/uGS+aqR33kNpada6X4lNlaHiSEY4TfW/ySHnWTWF+rbxfZHBlt36qc4kSPHD+JnmHDl4ji/UWyBTm1AZ3ulH0YXbk8F/i2roo4R73ZcEG3WY1+HYsbNytFWGlIOi1bul/z82BaOUTmyG7cg6WE2n2+IkJocjZKT51qMRw8qUq5Ur63NdIm28EuE87QGMGUK1AOJI5h+rhgq/jMexbuJiP0NnoLjFJu7px4fyufLeWkJEoNEmjw3G/ca3TI0Ksdf+hE=
