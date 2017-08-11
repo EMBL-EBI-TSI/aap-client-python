@@ -1,6 +1,6 @@
 import jwt
 
-from crypto_files import load_public_from_x509, load_private_from_pem
+from aap_client.crypto_files import load_public_from_x509, load_private_from_pem
 
 
 class TokenDecoder:
