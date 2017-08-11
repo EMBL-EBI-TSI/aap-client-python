@@ -4,8 +4,7 @@ from os import sys, path
 import unittest2
 import testdata
 
-from aap_client.token_encoder import TokenEncoder
-from aap_client.token_decoder import TokenDecoder
+from aap_client.tokens import TokenEncoder, TokenDecoder
 
 from tests.payload_gen import payloadValidity
 

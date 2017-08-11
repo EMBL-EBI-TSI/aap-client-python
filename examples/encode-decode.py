@@ -1,11 +1,10 @@
 from __future__ import absolute_import
 from os import sys, path
 
-from aap_client.token_encoder import TokenEncoder
-from aap_client.token_decoder import TokenDecoder
+from aap_client.tokens import TokenEncoder, TokenDecoder
 
 sys.path.append(path.abspath(path.join(path.dirname(__file__), '../tests/')))
-from claims_gen import ClaimsFactory
+from payload_gen import PayloadFactory
 
 dir = path.dirname(path.realpath(__file__)) + '/../resources/crypto_files/'
 encoder = TokenEncoder(dir + 'disposable.private.pem')
@@ -13,7 +12,7 @@ decoder = TokenDecoder(dir + 'disposable.public.pem')
 
 
 def main():
-    for payload in ClaimsFactory().generate(10):
+    for payload in PayloadFactory().generate(10):
         print
         print payload
         token = encoder.encode(payload)
