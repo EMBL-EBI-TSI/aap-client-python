@@ -34,12 +34,12 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         @cls.app.route(u'/required')
         @jwt_required
         def required():
-            return jsonify({u'msg': u'required'})
+            return jsonify({u'message': u'required'})
 
         @cls.app.route(u'/optional')
         @jwt_optional
         def optional():
-            return jsonify({u'msg': u'optional'})
+            return jsonify({u'message': u'optional'})
 
     def _request(self, verb, url, token=None, data=None):
         kwargs = dict()
@@ -69,7 +69,8 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         payload = next(validPayloads[0][1].generate(1))
         token = self._encoder.encode(payload)
 
-        status, _ = self._request(u'get', u'/required', token)
+        status, message = self._request(u'get', u'/required', token)
+        self.assertEqual(message, {u'message': u'required'})
         self.assertEqual(status, 200)
 
         status, _ = self._request(u'get', u'/optional', token)
@@ -86,7 +87,8 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         payload = next(invalidPayloads[0][1].generate(1))
         token = self._encoder.encode(payload)
 
-        status, _ = self._request(u'get', u'/required', token)
+        status, message = self._request(u'get', u'/required', token)
+        self.assertEqual(message, {u'message': u'Request contains an invalid token'})
         self.assertEqual(status, 401)
 
         status, _ = self._request(u'get', u'/optional', token)
