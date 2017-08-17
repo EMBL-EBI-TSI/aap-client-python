@@ -66,7 +66,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         return status_code, data
 
     def test_valid_claims(self):
-        payload = validPayloads[0][1].generate(1).next()
+        payload = next(validPayloads[0][1].generate(1))
         token = self._encoder.encode(payload)
 
         status, _ = self._request(u'get', u'/required', token)
@@ -76,9 +76,6 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         self.assertEqual(status, 200)
 
     def test_no_token(self):
-        payload = validPayloads[0][1].generate(1).next()
-        token = self._encoder.encode(payload)
-
         status, _ = self._request(u'get', u'/required')
         self.assertEqual(status, 401)
 
@@ -86,7 +83,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         self.assertEqual(status, 200)
 
     def test_invalid_claims(self):
-        payload = invalidPayloads[0][1].generate(1).next()
+        payload = next(invalidPayloads[0][1].generate(1))
         token = self._encoder.encode(payload)
 
         status, _ = self._request(u'get', u'/required', token)
