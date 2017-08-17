@@ -90,6 +90,9 @@ payloadValidity = [
      ), False),
 ]
 
+validPayloads   = [(name, generator) for (name, generator, valid) in payloadValidity if valid]
+invalidPayloads = [(name, generator) for (name, generator, valid) in payloadValidity if not valid]
+
 if __name__ == '__main__':
     for payload in PayloadFactory().generate(10):
         print(payload)
