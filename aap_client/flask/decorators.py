@@ -77,8 +77,8 @@ def _decode_from_request():
 
     try:
         return decode_token(jwt, current_app.public_key)
-    except DecodeError:
-        raise_with_traceback(ParseError(u'Unable to decode token'))
+    except DecodeError as e:
+        raise_with_traceback(ParseError(u'Unable to decode token: {}'.format(e)))
     except InvalidTokenError:
         raise_with_traceback(AuthenticationFailed(message=u'Request contains an invalid token'))
 
