@@ -50,7 +50,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
             request = self.client.get
 
         if token is not None:
-            kwargs[u'headers'] = {u'Authorization': u'Bearer {}'.format(token)}
+            kwargs[u'headers'] = {u'Authorization': u'Bearer {}'.format(token.decode('utf-8'))}
         if data is not None:
             kwargs[u'data'] = data
 
