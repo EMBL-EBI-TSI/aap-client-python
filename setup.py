@@ -65,7 +65,7 @@ setup(
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        'dev': ['check-manifest'],
+        'dev': ['flask'],
         'test': ['pytest', 'unittest2', 'flask'],
         'flask': ['flask']
     },
