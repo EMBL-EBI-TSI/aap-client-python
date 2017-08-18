@@ -31,7 +31,8 @@ def decode_token(serialized_token, public_key,
                  required_claims=[], audience=None):
     required_claims = set(required_claims).union(_DEFAULT_CLAIMS)
     return jwt.decode(serialized_token, public_key,
-                      audience=audience, options={'require': required_claims})
+                      audience=audience, options={'require': required_claims},
+                      algorithms=[u'RS256'])
 
 
 def encode_token(claims, private_key):

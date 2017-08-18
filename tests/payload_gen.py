@@ -8,8 +8,10 @@ from builtins import int
 
 import testdata
 
+
 def now():
     return timegm(datetime.utcnow().utctimetuple())
+
 
 class PayloadFactory(testdata.DictFactory):
     iat = testdata.Constant(now())
