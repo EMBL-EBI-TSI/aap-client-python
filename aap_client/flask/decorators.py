@@ -5,6 +5,7 @@ from functools import wraps
 from jwt import DecodeError, InvalidTokenError
 
 from aap_client.tokens import decode_token
+from aap_client.flask.config import config
 from aap_client.flask.exceptions import (
     FlaskException, AuthenticationFailed, NotAuthenticated, ParseError
 )
@@ -76,7 +77,7 @@ def _decode_from_request():
     jwt = splitted_header[1]
 
     try:
-        return decode_token(jwt, current_app.public_key)
+        return decode_token(jwt, config.public_key)
     except DecodeError as e:
         raise_with_traceback(ParseError(u'Unable to decode token: {}'.format(e)))
     except InvalidTokenError:

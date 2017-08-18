@@ -26,7 +26,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         cls._encoder = TokenEncoder(pem)
 
         cls.app = Flask(__name__)
-        cls.app.public_key = load_public_from_x509(x509)
+        cls.app.config['JWT_PUBLIC_KEY'] = load_public_from_x509(x509)
 
         cls.jwt_client = JWTClient(cls.app)
         cls.client = cls.app.test_client()
