@@ -13,10 +13,10 @@ Usage
 #####
 
 To install the package, enable the virtual environment where it's going to be used and run
-``$ python setup.py install``
+``$ pip install aap-client-python``
 
-To use the Flask functionality this needs to be installed as well:
-``$ python install -e .[flask]``
+To use the Flask functionality this needs to be installed:
+``$ pip install aap-client-python[flask]``
 
 Developing
 ##########
@@ -25,7 +25,6 @@ To prepare the environment for developing the library, create a virtual environm
 
 ::
 
-  $ pip install -r requirements.txt
   $ pip install -e .[dev]
 
 Testing
