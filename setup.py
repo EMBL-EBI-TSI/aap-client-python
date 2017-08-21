@@ -23,7 +23,6 @@ setup(
     author='Pau Ruiz Safont',
     author_email='psafont@ebi.ac.uk',
 
-    # Choose your license
     license='BSD-2-Clause',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -34,11 +33,9 @@ setup(
         #   5 - Production/Stable
         'Development Status :: 4 - Beta',
 
-        # Indicate who your project is intended for
         'Intended Audience :: Developers',
 
-        # Pick your license as you wish (should match "license" above)
-        'License :: OSI Approved :: 2-Clause BSD License',
+        'License :: OSI Approved :: BSD License',
 
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
