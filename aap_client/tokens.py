@@ -30,9 +30,14 @@ class TokenEncoder:
 def decode_token(serialized_token, public_key,
                  required_claims=[], audience=None):
     required_claims = set(required_claims).union(_DEFAULT_CLAIMS)
-    return jwt.decode(serialized_token, public_key,
-                      audience=audience, options={'require': required_claims},
+    payload = jwt.decode(serialized_token, public_key,
+                      audience=audience,
                       algorithms=[u'RS256'])
+    for claim in required_claims:
+        if payload.get(claim) is None:
+            raise MissingRequiredClaimError(claim)
+
+    return payload
 
 
 def encode_token(claims, private_key):

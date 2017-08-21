@@ -32,7 +32,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
@@ -43,12 +43,13 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
 
     # What does your project relate to?
-    keywords='aap jose jwt auth',
+    keywords='aap jose jwt auth flask',
 
     packages=find_packages(exclude=['examples', 'docs', 'tests']),
 
@@ -56,18 +57,28 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['pyjwt[crypto]', 'future'],
+    install_requires=[
+        'pyjwt[crypto]==1.5.2',
+        'future==0.16.0'
+    ],
 
     setup_requires=['setuptools_scm'],
+
+    python_requires='!=2.6, !=3.1, !=3.2, !=3.3, <4.0',
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        'dev': ['flask'],
-        'test': ['pytest', 'unittest2', 'flask'],
-        'flask': ['flask']
+        'dev': ['flask==0.12.2'],
+        'test': [
+            'pytest',
+            'unittest2',
+            'flask==0.12.2',
+            'python-testdata-tsi==2.0.1'
+        ],
+        'flask': ['flask==0.12.2']
     },
 )
 
