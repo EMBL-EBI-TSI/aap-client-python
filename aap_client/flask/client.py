@@ -2,6 +2,7 @@ from flask import jsonify
 
 from aap_client.flask.exceptions import FlaskException
 
+
 class JWTClient(object):
     def __init__(self, app=None):
         """

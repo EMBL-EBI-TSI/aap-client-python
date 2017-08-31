@@ -72,16 +72,19 @@ def _decode_from_request():
     # Authorization: Bearer <JWT>
     splitted_header = auth_header.split()
     if len(splitted_header) != 2 and splitted_header[0] == u'Bearer:':
-        raise ParseError(u'Invalid Authorization header, expected \'Bearer <JWT>\'')
+        raise ParseError(u'Invalid Authorization header, \
+                           expected \'Bearer <JWT>\'')
 
     jwt = splitted_header[1]
 
     try:
         return decode_token(jwt, config.public_key)
     except DecodeError as e:
-        raise_with_traceback(ParseError(u'Unable to decode token: {}'.format(e)))
+        raise_with_traceback(
+            ParseError(u'Unable to decode token: {}'.format(e)))
     except InvalidTokenError:
-        raise_with_traceback(AuthenticationFailed(message=u'Request contains an invalid token'))
+        raise_with_traceback(
+            AuthenticationFailed(message=u'Request contains an invalid token'))
 
 
 def _get_jwt_client():
@@ -90,5 +93,3 @@ def _get_jwt_client():
     except AttributeError:
         raise RuntimeError(u'JWTClient must be initialized with a flask '
                            u'application before using this method')
-
-

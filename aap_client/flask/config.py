@@ -23,4 +23,5 @@ class _Config(object):
                                'process tokens from the AAP.')
         return key
 
+
 config = _Config()
