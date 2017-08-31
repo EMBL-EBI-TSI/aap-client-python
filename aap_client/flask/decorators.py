@@ -72,8 +72,8 @@ def _decode_from_request():
     # Authorization: Bearer <JWT>
     splitted_header = auth_header.split()
     if len(splitted_header) != 2 and splitted_header[0] == u'Bearer:':
-        raise ParseError(u'Invalid Authorization header, \
-                           expected \'Bearer <JWT>\'')
+        raise ParseError(u'Invalid Authorization header, '
+                         u'expected \'Bearer <JWT>\'')
 
     jwt = splitted_header[1]
 

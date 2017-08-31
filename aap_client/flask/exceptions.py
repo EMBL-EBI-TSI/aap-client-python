@@ -7,7 +7,7 @@ class FlaskException(Exception):
 
     def to_dict(self):
         rv = dict(self.payload or ())
-        rv['message'] = self.message
+        rv[u'message'] = self.message
         return rv
 
 

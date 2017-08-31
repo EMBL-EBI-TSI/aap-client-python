@@ -7,7 +7,7 @@ from aap_client.crypto_files import (
 )
 
 
-_DEFAULT_CLAIMS = {'iat', 'exp', 'sub', 'email', 'name', 'nickname'}
+_DEFAULT_CLAIMS = {u'iat', u'exp', u'sub', u'email', u'name', u'nickname'}
 
 
 class TokenDecoder:
@@ -26,9 +26,19 @@ class TokenDecoder:
 
 class TokenEncoder:
     def __init__(self, key_filename, secret=None):
+        '''
+        Args:
+            key_filename: relative path to the file that contains the
+                secret key.
+            secret: string that decodes the secret key.
+        '''
         self._private_key = load_private_from_pem(key_filename, secret)
 
     def encode(self, claims):
+        '''
+        Args:
+            claims: dictionary that stores the claims
+        '''
         return encode_token(claims, self._private_key)
 
 
@@ -51,4 +61,4 @@ def decode_token(serialized_token, public_key,
 
 
 def encode_token(claims, private_key):
-        return jwt.encode(claims, private_key, algorithm='RS256')
+        return jwt.encode(claims, private_key, algorithm=u'RS256')

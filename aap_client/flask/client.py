@@ -11,8 +11,8 @@ class JWTClient(object):
         if app is not None:
             app.jwt_client = self
 
-            app.config.setdefault('PROPAGATE_EXCEPTIONS', True)
-            app.config.setdefault('JWT_PUBLIC_KEY', None)
+            app.config.setdefault(u'PROPAGATE_EXCEPTIONS', True)
+            app.config.setdefault(u'JWT_PUBLIC_KEY', None)
 
             @app.errorhandler(FlaskException)
             def handle_invalid_usage(error):

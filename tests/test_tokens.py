@@ -10,9 +10,10 @@ from tests.payload_gen import payloadValidity
 class TokenTestCase(unittest2.TestCase):
     @classmethod
     def setUpClass(cls):
-        folder = path.dirname(path.realpath(__file__)) + '/../resources/crypto_files/'
-        cls._encoder = TokenEncoder(folder + 'disposable.private.pem')
-        cls._decoder = TokenDecoder(folder + 'disposable.public.pem')
+        folder = path.dirname(path.realpath(__file__)) +\
+                 u'/../resources/crypto_files/'
+        cls._encoder = TokenEncoder(folder + u'disposable.private.pem')
+        cls._decoder = TokenDecoder(folder + u'disposable.public.pem')
 
     def test_token(self):
         for (name, generator, valid) in payloadValidity:
@@ -20,16 +21,18 @@ class TokenTestCase(unittest2.TestCase):
                 for payload in generator.generate(10):
                     token = self._encoder.encode(payload)
 
-                    # shouldn't request audience if there isn't any in the token
-                    aud = 'webapp.ebi.ac.uk' if 'aud' in payload else None
-                    decode = lambda tok: self._decoder.decode(tok, audience=aud)
+                    # don't request audience if there isn't any in the token
+                    aud = u'webapp.ebi.ac.uk' if u'aud' in payload else None
+
+                    def decode(tok):
+                        self._decoder.decode(tok, audience=aud)
 
                     if valid:
                         decode(token)
                     else:
-                        with self.assertRaises(Exception) as c:
+                        with self.assertRaises(Exception):
                             decode(token)
 
 
-if __name__ == '__main__':
+if __name__ == u'__main__':
     unittest2.main()

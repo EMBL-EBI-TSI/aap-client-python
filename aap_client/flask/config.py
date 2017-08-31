@@ -16,11 +16,11 @@ class _Config(object):
     """
     @property
     def public_key(self):
-        key = current_app.config['JWT_PUBLIC_KEY']
+        key = current_app.config[u'JWT_PUBLIC_KEY']
         if not key:
-            raise RuntimeError('JWT_PUBLIC_KEY needs to be added to '
-                               'the Flask app\'s config in order to '
-                               'process tokens from the AAP.')
+            raise RuntimeError(u'JWT_PUBLIC_KEY needs to be added to '
+                               u'the Flask app\'s config in order to '
+                               u'process tokens from the AAP.')
         return key
 
 

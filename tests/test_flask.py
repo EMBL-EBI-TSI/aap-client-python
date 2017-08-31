@@ -19,14 +19,15 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        folder = path.dirname(path.realpath(__file__)) + u'/../resources/crypto_files/'
+        folder = path.dirname(path.realpath(__file__)) +\
+                 u'/../resources/crypto_files/'
         pem = folder + u'disposable.private.pem'
         x509 = folder + u'disposable.public.pem'
 
         cls._encoder = TokenEncoder(pem)
 
         cls.app = Flask(__name__)
-        cls.app.config['JWT_PUBLIC_KEY'] = load_public_from_x509(x509)
+        cls.app.config[u'JWT_PUBLIC_KEY'] = load_public_from_x509(x509)
 
         cls.jwt_client = JWTClient(cls.app)
         cls.client = cls.app.test_client()
@@ -50,7 +51,8 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
             request = self.client.get
 
         if token is not None:
-            kwargs[u'headers'] = {u'Authorization': u'Bearer {}'.format(token.decode('utf-8'))}
+            kwargs[u'headers'] =\
+                {u'Authorization': u'Bearer {}'.format(token.decode('utf-8'))}
         if data is not None:
             kwargs[u'data'] = data
 
@@ -88,7 +90,8 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         token = self._encoder.encode(payload)
 
         status, message = self._request(u'get', u'/required', token)
-        self.assertEqual(message, {u'message': u'Request contains an invalid token'})
+        self.assertEqual(message,
+                         {u'message': u'Request contains an invalid token'})
         self.assertEqual(status, 401)
 
         status, _ = self._request(u'get', u'/optional', token)
