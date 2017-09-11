@@ -97,6 +97,30 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         status, _ = self._request(u'get', u'/optional', token)
         self.assertEqual(status, 200)
 
+    def test_get_claims(self):
+        payload = next(validPayloads[0][1].generate(1))
+        token = self._encoder.encode(payload)
+
+        app = Flask(__name__)
+        app.config[u'JWT_PUBLIC_KEY'] = self.app.config[u'JWT_PUBLIC_KEY']
+
+        JWTClient(app)
+        client = app.test_client()
+
+        @app.route(u'/test')
+        @jwt_required
+        def required():
+            claims = get_claims()
+            self.assertIsNotNone(claims)
+            self.assertIn(u'sub', claims)
+            self.assertEqual(payload, claims)
+            return jsonify({u'message': u'required'})
+
+        client.get(u'/test',
+                   headers={u'Authorization': u'Bearer {}'.format(
+                       token.decode('utf-8'))}
+                   )
+
 
 if __name__ == u'__main__':
     unittest2.main()

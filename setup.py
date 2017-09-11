@@ -73,7 +73,7 @@ setup(
             'pytest',
             'unittest2',
             'flask==0.12.2',
-            'python-testdata-tsi==2.0.1'
+            'python-testdata-tsi==0.2.0.1'
         ],
         'flask': ['flask==0.12.2']
     },

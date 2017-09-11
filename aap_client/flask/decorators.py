@@ -57,6 +57,13 @@ def get_user():
     return getattr(ctx_stack.top, u'user', None)
 
 
+def get_claims():
+    """
+    Returns the claims in the current context / request, otherwise None
+    """
+    return getattr(ctx_stack.top, u'token', None)
+
+
 def _load_jwt_to_context():
     claims = _decode_from_request()
     ctx_stack.top.token = claims
