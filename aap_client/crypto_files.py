@@ -14,7 +14,7 @@ def load_public_from_x509(x509_filename):
 def load_private_from_pem(pem_filename, secret=None):
     with open(pem_filename, 'rb') as pem_file:
         private_key = load_pem_private_key(
-                pem_file.read(),
-                password=secret,
-                backend=default_backend())
+            pem_file.read(),
+            password=secret,
+            backend=default_backend())
     return private_key

@@ -1,13 +1,20 @@
-from setuptools import setup, find_packages
 from codecs import open
 from os import path
+from setuptools import setup, find_packages
 
-here = path.abspath(path.dirname(__file__))
+HERE = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+with open(path.join(HERE, 'README.rst'), encoding='utf-8') as f:
+    LONG_DESC = f.read()
 
+INSTALL_DEPS = ['pyjwt[crypto]==1.5.2',
+                'future==0.16.0']
+FLASK_DEPS = ['flask>=0.12.2']
+TEST_DEPS = ['pytest',
+             'unittest2',
+             'python-testdata-tsi==0.2.0.1'] + FLASK_DEPS
+DEV_DEPS = FLASK_DEPS
 
 setup(
     name='aap-client-python',
@@ -16,7 +23,7 @@ setup(
     use_scm_version=True,
 
     description='AAP Client',
-    long_description=long_description,
+    long_description=LONG_DESC,
 
     url='https://github.com/EMBL-EBI-TSI/aap-client-python',
 
@@ -54,10 +61,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=[
-        'pyjwt[crypto]==1.5.2',
-        'future==0.16.0'
-    ],
+    install_requires=INSTALL_DEPS,
 
     setup_requires=['setuptools_scm'],
 
@@ -68,13 +72,8 @@ setup(
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        'dev': ['flask==0.12.2'],
-        'test': [
-            'pytest',
-            'unittest2',
-            'flask==0.12.2',
-            'python-testdata-tsi==0.2.0.1'
-        ],
-        'flask': ['flask==0.12.2']
+        'dev': DEV_DEPS,
+        'test': TEST_DEPS,
+        'flask': FLASK_DEPS
     },
 )

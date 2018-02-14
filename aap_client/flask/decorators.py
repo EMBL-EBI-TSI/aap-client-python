@@ -1,14 +1,8 @@
-from future.utils import raise_with_traceback
-
 from functools import wraps
 
-from jwt import DecodeError, InvalidTokenError
+from future.utils import raise_with_traceback
 
-from aap_client.tokens import decode_token
-from aap_client.flask.config import config
-from aap_client.flask.exceptions import (
-    FlaskException, AuthenticationFailed, NotAuthenticated, ParseError
-)
+from jwt import DecodeError, InvalidTokenError
 
 from flask import current_app, request
 
@@ -16,6 +10,12 @@ try:
     from flask import _app_ctx_stack as ctx_stack
 except ImportError:
     from flask import _request_ctx_stack as ctx_stack
+
+from aap_client.tokens import decode_token
+from aap_client.flask.config import CONFIG
+from aap_client.flask.exceptions import (
+    FlaskException, AuthenticationFailed, NotAuthenticated, ParseError
+)
 
 
 def jwt_required(func):
@@ -85,10 +85,10 @@ def _decode_from_request():
     jwt = splitted_header[1]
 
     try:
-        return decode_token(jwt, config.public_key)
-    except DecodeError as e:
+        return decode_token(jwt, CONFIG.public_key)
+    except DecodeError as err:
         raise_with_traceback(
-            ParseError(u'Unable to decode token: {}'.format(e)))
+            ParseError(u'Unable to decode token: {}'.format(err)))
     except InvalidTokenError:
         raise_with_traceback(
             AuthenticationFailed(message=u'Request contains an invalid token'))

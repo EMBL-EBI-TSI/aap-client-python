@@ -6,9 +6,9 @@ class FlaskException(Exception):
         self.payload = payload
 
     def to_dict(self):
-        rv = dict(self.payload or ())
-        rv[u'message'] = self.message
-        return rv
+        r_v = dict(self.payload or ())
+        r_v[u'message'] = self.message
+        return r_v
 
 
 class AuthenticationFailed(FlaskException):

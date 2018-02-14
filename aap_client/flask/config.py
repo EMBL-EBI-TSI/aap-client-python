@@ -1,7 +1,7 @@
 from flask import current_app
 
 
-class _Config(object):
+class _Config(object):  # pylint: disable=too-few-public-methods
     """
     Helper object to help verify and retrieve configuration options for the
     AAP's Flask extension.
@@ -24,4 +24,4 @@ class _Config(object):
         return key
 
 
-config = _Config()
+CONFIG = _Config()

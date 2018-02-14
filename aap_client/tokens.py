@@ -10,7 +10,7 @@ from aap_client.crypto_files import (
 _DEFAULT_CLAIMS = {u'iat', u'exp', u'sub', u'email', u'name', u'nickname'}
 
 
-class TokenDecoder:
+class TokenDecoder:  # pylint: disable=too-few-public-methods
     def __init__(self, filename, required_claims=None):
         if required_claims is None:
             required_claims = []
@@ -24,7 +24,7 @@ class TokenDecoder:
                             audience=audience)
 
 
-class TokenEncoder:
+class TokenEncoder:  # pylint: disable=too-few-public-methods
     def __init__(self, key_filename, secret=None):
         '''
         Args:
@@ -61,4 +61,4 @@ def decode_token(serialized_token, public_key,
 
 
 def encode_token(claims, private_key):
-        return jwt.encode(claims, private_key, algorithm=u'RS256')
+    return jwt.encode(claims, private_key, algorithm=u'RS256')

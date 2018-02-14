@@ -3,7 +3,7 @@ from flask import jsonify
 from aap_client.flask.exceptions import FlaskException
 
 
-class JWTClient(object):
+class JWTClient(object):  # pylint: disable=too-few-public-methods
     def __init__(self, app=None):
         """
         :param app: a Flask application
@@ -15,7 +15,7 @@ class JWTClient(object):
             app.config.setdefault(u'JWT_PUBLIC_KEY', None)
 
             @app.errorhandler(FlaskException)
-            def handle_invalid_usage(error):
+            def handle_invalid_usage(error):  # pylint: disable=unused-variable
                 response = jsonify(error.to_dict())
                 response.status_code = error.status_code
                 return response
