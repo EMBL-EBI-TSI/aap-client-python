@@ -10,7 +10,7 @@ from aap_client.crypto_files import (
 _DEFAULT_CLAIMS = {u'iat', u'exp', u'sub', u'email', u'name', u'nickname'}
 
 
-class TokenDecoder:  # pylint: disable=too-few-public-methods
+class TokenDecoder(object):  # pylint: disable=too-few-public-methods
     def __init__(self, filename, required_claims=None):
         if required_claims is None:
             required_claims = []
@@ -24,7 +24,7 @@ class TokenDecoder:  # pylint: disable=too-few-public-methods
                             audience=audience)
 
 
-class TokenEncoder:  # pylint: disable=too-few-public-methods
+class TokenEncoder(object):  # pylint: disable=too-few-public-methods
     def __init__(self, key_filename, secret=None):
         '''
         Args:
