@@ -1,5 +1,9 @@
 .. image:: https://travis-ci.org/EMBL-EBI-TSI/aap-client-python.svg?branch=master
     :target: https://travis-ci.org/EMBL-EBI-TSI/aap-client-python
+.. image:: https://codecov.io/gh/EMBL-EBI-TSI/aap-client-python/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/EMBL-EBI-TSI/aap-client-python
+
+
 
 Overview
 ########
