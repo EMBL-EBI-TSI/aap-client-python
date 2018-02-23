@@ -1,3 +1,4 @@
+"""Exports the configuration for managing tokens within flask"""
 from flask import current_app
 
 
@@ -16,6 +17,9 @@ class _Config(object):  # pylint: disable=too-few-public-methods
     """
     @property
     def public_key(self):
+        """
+        Method that retrieves the public key used by the flask application
+        """
         key = current_app.config[u'JWT_PUBLIC_KEY']
         if not key:
             raise RuntimeError(u'JWT_PUBLIC_KEY needs to be added to '

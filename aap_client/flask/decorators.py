@@ -1,3 +1,7 @@
+"""
+Contains flask decorators and some helper functions
+in order to integrate jwt tokens in flask in a natural way
+"""
 from functools import wraps
 
 from future.utils import raise_with_traceback
@@ -26,7 +30,7 @@ def jwt_required(func):
     :param func: The decorated view function
     """
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs):  # pylint: disable=C0111
         _load_jwt_to_context()
         return func(*args, **kwargs)
     return wrapper
@@ -41,7 +45,7 @@ def jwt_optional(func):
     :param func: The decorated view function
     """
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs):  # pylint: disable=C0111
         try:
             _load_jwt_to_context()
         except FlaskException:
