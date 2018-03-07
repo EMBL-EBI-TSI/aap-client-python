@@ -1,11 +1,11 @@
-from codecs import open
+import codecs
 from os import path
 from setuptools import setup, find_packages
 
 HERE = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(HERE, 'README.rst'), encoding='utf-8') as f:
+with codecs.open(path.join(HERE, 'README.rst'), encoding='utf-8') as f:
     LONG_DESC = f.read()
 
 INSTALL_DEPS = ['pyjwt[crypto]==1.5.2',
@@ -30,7 +30,7 @@ setup(
     author='Pau Ruiz Safont',
     author_email='psafont@ebi.ac.uk',
 
-    license='BSD-2-Clause',
+    license='Apache 2.0',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -42,7 +42,7 @@ setup(
 
         'Intended Audience :: Developers',
 
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: Apache Software License',
 
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
