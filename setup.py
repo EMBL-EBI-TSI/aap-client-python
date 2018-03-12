@@ -8,12 +8,12 @@ HERE = path.abspath(path.dirname(__file__))
 with codecs.open(path.join(HERE, 'README.rst'), encoding='utf-8') as f:
     LONG_DESC = f.read()
 
-INSTALL_DEPS = ['pyjwt[crypto]==1.5.2',
-                'future==0.16.0']
+INSTALL_DEPS = ['pyjwt[crypto]>=1.5.2',
+                'future>=0.16.0']
 FLASK_DEPS = ['flask>=0.12.2']
 TEST_DEPS = ['pytest',
              'unittest2',
-             'python-testdata-tsi==0.2.0.1'] + FLASK_DEPS
+             'python-testdata-tsi>=0.2.0.1'] + FLASK_DEPS
 DEV_DEPS = FLASK_DEPS
 
 setup(
@@ -65,7 +65,7 @@ setup(
 
     setup_requires=['setuptools_scm'],
 
-    python_requires='!=2.6, !=3.1, !=3.2, !=3.3, <4.0',
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4',
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
