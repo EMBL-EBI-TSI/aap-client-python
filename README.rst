@@ -2,7 +2,8 @@
     :target: https://travis-ci.org/EMBL-EBI-TSI/aap-client-python
 .. image:: https://codecov.io/gh/EMBL-EBI-TSI/aap-client-python/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/EMBL-EBI-TSI/aap-client-python
-
+.. image:: https://coveralls.io/repos/github/EMBL-EBI-TSI/aap-client-python/badge.svg?branch=master
+  :target: https://coveralls.io/github/EMBL-EBI-TSI/aap-client-python?branch=master
 
 
 Overview
