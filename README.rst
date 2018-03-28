@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FEMBL-EBI-TSI%2Faap-client-python.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FEMBL-EBI-TSI%2Faap-client-python?ref=badge_shield)
+
 .. image:: https://travis-ci.org/EMBL-EBI-TSI/aap-client-python.svg?branch=master
     :target: https://travis-ci.org/EMBL-EBI-TSI/aap-client-python
 .. image:: https://codecov.io/gh/EMBL-EBI-TSI/aap-client-python/branch/master/graph/badge.svg
@@ -49,3 +51,7 @@ Alternatively, testing can be done in the same environment as the dev one by ins
 
   $ pip install -e .[test]
   $ python -m pytest -s
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FEMBL-EBI-TSI%2Faap-client-python.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FEMBL-EBI-TSI%2Faap-client-python?ref=badge_large)
