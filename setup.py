@@ -1,11 +1,11 @@
-import codecs
+import io
 from os import path
 from setuptools import setup, find_packages
 
 HERE = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with codecs.open(path.join(HERE, 'README.rst'), encoding='utf-8') as f:
+with io.open(path.join(HERE, 'README.rst'), encoding='utf-8') as f:
     LONG_DESC = f.read()
 
 INSTALL_DEPS = ['pyjwt[crypto]>=1.5.2',
