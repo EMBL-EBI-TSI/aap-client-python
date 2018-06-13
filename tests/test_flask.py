@@ -5,10 +5,14 @@ import unittest2
 
 import json
 
+import jwt
+
 from flask import Flask, jsonify
 
-from aap_client.crypto_files import load_public_from_x509
-from aap_client.tokens import TokenEncoder
+from aap_client.crypto_files import (
+    load_public_from_x509,
+    load_private_from_pem
+)
 from aap_client.flask.client import JWTClient
 from aap_client.flask.decorators import jwt_required, jwt_optional
 
@@ -21,10 +25,8 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
     def setUpClass(cls):
         folder = path.dirname(path.realpath(__file__)) +\
                  u'/../resources/crypto_files/'
-        pem = folder + u'disposable.private.pem'
+        cls._key = load_private_from_pem(folder + u'disposable.private.pem')
         x509 = folder + u'disposable.public.pem'
-
-        cls._encoder = TokenEncoder(pem)
 
         cls.app = Flask(__name__)
         cls.app.config[u'JWT_PUBLIC_KEY'] = load_public_from_x509(x509)
@@ -69,7 +71,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
 
     def test_valid_claims(self):
         payload = next(validPayloads[0][1].generate(1))
-        token = self._encoder.encode(payload)
+        token = jwt.encode(payload, self._key, algorithm=u'RS256')
 
         status, message = self._request(u'get', u'/required', token)
         self.assertEqual(message, {u'message': u'required'})
@@ -87,7 +89,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
 
     def test_invalid_claims(self):
         payload = next(invalidPayloads[0][1].generate(1))
-        token = self._encoder.encode(payload)
+        token = jwt.encode(payload, self._key, algorithm=u'RS256')
 
         status, message = self._request(u'get', u'/required', token)
         self.assertEqual(message,
@@ -99,7 +101,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
 
     def test_get_claims(self):
         payload = next(validPayloads[0][1].generate(1))
-        token = self._encoder.encode(payload)
+        token = jwt.encode(payload, self._key, algorithm=u'RS256')
 
         app = Flask(__name__)
         app.config[u'JWT_PUBLIC_KEY'] = self.app.config[u'JWT_PUBLIC_KEY']
@@ -119,7 +121,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         client.get(u'/test',
                    headers={u'Authorization': u'Bearer {}'.format(
                        token.decode('utf-8'))}
-                   )
+                  )
 
 
 if __name__ == u'__main__':
