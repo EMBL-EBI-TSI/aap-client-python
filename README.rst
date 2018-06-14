@@ -9,8 +9,7 @@
 Overview
 ########
 
-This library can be used to interface with the AAP, although it is also able to sign tokens.
-(for testing the verification is done correctly)
+This library is meant to be used in the backed to interact with Tokens produced by EBI's AAP
 
 Cryptographic files here shouldn't be used in production, they're just for testing :)
 
@@ -43,7 +42,7 @@ To use, install it, then run in the project root:
   $ pip install detox
   $ detox
 
-Alternatively, testing can be done in the same environment as the dev one by installing it's dependecies, then running pytest:
+Alternatively, testing can be done in the same environment as the dev one by installing it's dependencies, then running pytest:
 
 ::
 
