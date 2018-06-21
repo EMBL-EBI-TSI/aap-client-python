@@ -6,7 +6,7 @@ from functools import wraps
 
 from future.utils import raise_with_traceback
 
-from jwt import DecodeError, InvalidTokenError
+from jwt import DecodeError, InvalidTokenError as JWTInvalidTokenError
 
 from flask import current_app, request
 
@@ -18,7 +18,7 @@ except ImportError:
 from aap_client.tokens import decode_token
 from aap_client.flask.config import CONFIG
 from aap_client.flask.exceptions import (
-    FlaskException, AuthenticationFailed, NotAuthenticated, ParseError
+    FlaskException, InvalidRequestError, InvalidTokenError
 )
 
 
@@ -78,13 +78,13 @@ def _decode_from_request():
     # verify that the auth header exists
     auth_header = request.headers.get(u'Authorization', None)
     if not auth_header:
-        raise NotAuthenticated(u'Request is missing the Authorization header')
+        raise NoAuthorizationError(u'Authorization Required')
     # verify that the header is in the correct format
     # Authorization: Bearer <JWT>
     splitted_header = auth_header.split()
     if len(splitted_header) != 2 and splitted_header[0] == u'Bearer:':
-        raise ParseError(u'Invalid Authorization header, '
-                         u'expected \'Bearer <JWT>\'')
+        raise InvalidRequestError(u'Invalid Authorization header, '
+                                  u'expected \'Bearer <JWT>\'')
 
     jwt = splitted_header[1]
 
@@ -92,10 +92,10 @@ def _decode_from_request():
         return decode_token(jwt, CONFIG.public_key)
     except DecodeError as err:
         raise_with_traceback(
-            ParseError(u'Unable to decode token: {}'.format(err)))
-    except InvalidTokenError:
+            InvalidTokenError(u'Unable to decode token: {}'.format(err)))
+    except JWTInvalidTokenError as err:
         raise_with_traceback(
-            AuthenticationFailed(message=u'Request contains an invalid token'))
+            InvalidTokenError(u'{}'.format(err)))
 
 
 def _get_jwt_client():
