@@ -4,7 +4,11 @@ for managing tokens in a Flask environment
 """
 from flask import jsonify
 
-from aap_client.flask.exceptions import FlaskException
+from aap_client.flask.exceptions import (
+    FlaskException,
+    InvalidRequestError,
+    InvalidTokenError
+)
 
 
 class JWTClient(object):  # pylint: disable=too-few-public-methods
@@ -29,4 +33,15 @@ class JWTClient(object):  # pylint: disable=too-few-public-methods
             def handle_invalid_usage(error):  # pylint: disable=W0612,C0111
                 response = jsonify(error.to_dict())
                 response.status_code = error.status_code
+
+                if isinstance(error, NoAuthorizationError):
+                    response.headers[u'WWW-Authenticate'] =\
+                        u'Bearer realm="aap"'
+                elif isinstance(error, InvalidRequestError):
+                    if error.message == u'':
+                        response.headers[u'WWW-Authenticate'] =\
+                            u'Bearer realm="aap" error="invalid_request"'
+                elif isinstance(error, InvalidTokenError):
+                    response.headers[u'WWW-Authenticate'] =\
+                        u'Bearer realm="aap" error="invalid_token"'
                 return response

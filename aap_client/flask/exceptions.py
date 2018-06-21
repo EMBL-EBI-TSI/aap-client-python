@@ -24,16 +24,10 @@ class FlaskException(Exception):
         return r_v
 
 
-class AuthenticationFailed(FlaskException):  # pylint: disable=C0111
-    def __init__(self, message, status_code=401, payload=None):
-        FlaskException.__init__(self, message, status_code, payload)
-
-
-class NotAuthenticated(FlaskException):  # pylint: disable=C0111
-    def __init__(self, message, status_code=401, payload=None):
-        FlaskException.__init__(self, message, status_code, payload)
-
-
-class ParseError(FlaskException):  # pylint: disable=C0111
+class InvalidRequestError(FlaskException):  # pylint: disable=C0111
     def __init__(self, message, status_code=400, payload=None):
+        FlaskException.__init__(self, message, status_code, payload)
+
+class InvalidTokenError(FlaskException):  # pylint: disable=C0111
+    def __init__(self, message, status_code=401, payload=None):
         FlaskException.__init__(self, message, status_code, payload)

@@ -4,7 +4,6 @@ from os import path
 import unittest2
 
 import json
-
 import jwt
 
 from flask import Flask, jsonify
@@ -82,7 +81,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
 
     def test_no_token(self):
         status, _ = self._request(u'get', u'/required')
-        self.assertEqual(status, 401)
+        self.assertEqual(status, 400)
 
         status, _ = self._request(u'get', u'/optional')
         self.assertEqual(status, 200)
@@ -92,8 +91,7 @@ class FlaskDecoratorsTestCase(unittest2.TestCase):
         token = jwt.encode(payload, self._key, algorithm=u'RS256')
 
         status, message = self._request(u'get', u'/required', token)
-        self.assertEqual(message,
-                         {u'message': u'Request contains an invalid token'})
+        self.assertIn(u'expired', message[u'message'])
         self.assertEqual(status, 401)
 
         status, _ = self._request(u'get', u'/optional', token)
