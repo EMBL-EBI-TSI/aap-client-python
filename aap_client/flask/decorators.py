@@ -18,7 +18,10 @@ except ImportError:
 from aap_client.tokens import decode_token
 from aap_client.flask.config import CONFIG
 from aap_client.flask.exceptions import (
-    FlaskException, InvalidRequestError, InvalidTokenError
+    FlaskException,
+    InvalidRequestError,
+    InvalidTokenError,
+    NoAuthenticationError
 )
 
 
@@ -78,7 +81,7 @@ def _decode_from_request():
     # verify that the auth header exists
     auth_header = request.headers.get(u'Authorization', None)
     if not auth_header:
-        raise NoAuthorizationError(u'Authorization Required')
+        raise NoAuthenticationError(u'Authorization Required')
     # verify that the header is in the correct format
     # Authorization: Bearer <JWT>
     splitted_header = auth_header.split()

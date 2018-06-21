@@ -31,3 +31,7 @@ class InvalidRequestError(FlaskException):  # pylint: disable=C0111
 class InvalidTokenError(FlaskException):  # pylint: disable=C0111
     def __init__(self, message, status_code=401, payload=None):
         FlaskException.__init__(self, message, status_code, payload)
+
+class NoAuthenticationError(FlaskException):  # pylint: disable=C0111
+    def __init__(self, message, status_code=401, payload=None):
+        FlaskException.__init__(self, message, status_code, payload)
