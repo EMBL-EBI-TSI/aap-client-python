@@ -7,7 +7,8 @@ from flask import jsonify
 from aap_client.flask.exceptions import (
     FlaskException,
     InvalidRequestError,
-    InvalidTokenError
+    InvalidTokenError,
+    NoAuthenticationError
 )
 
 
@@ -34,7 +35,7 @@ class JWTClient(object):  # pylint: disable=too-few-public-methods
                 response = jsonify(error.to_dict())
                 response.status_code = error.status_code
 
-                if isinstance(error, NoAuthorizationError):
+                if isinstance(error, NoAuthenticationError):
                     response.headers[u'WWW-Authenticate'] =\
                         u'Bearer realm="aap"'
                 elif isinstance(error, InvalidRequestError):
