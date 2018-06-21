@@ -12,7 +12,6 @@ INSTALL_DEPS = ['pyjwt[crypto]>=1.5.2',
                 'future>=0.16.0']
 FLASK_DEPS = ['flask>=0.12.2']
 TEST_DEPS = ['pytest',
-             'unittest2',
              'python-testdata-tsi>=0.2.0.1'] + FLASK_DEPS
 DEV_DEPS = FLASK_DEPS
 
