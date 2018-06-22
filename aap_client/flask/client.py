@@ -39,9 +39,8 @@ class JWTClient(object):  # pylint: disable=too-few-public-methods
                     response.headers[u'WWW-Authenticate'] =\
                         u'Bearer realm="aap"'
                 elif isinstance(error, InvalidRequestError):
-                    if error.message == u'':
-                        response.headers[u'WWW-Authenticate'] =\
-                            u'Bearer realm="aap" error="invalid_request"'
+                    response.headers[u'WWW-Authenticate'] =\
+                        u'Bearer realm="aap" error="invalid_request"'
                 elif isinstance(error, InvalidTokenError):
                     response.headers[u'WWW-Authenticate'] =\
                         u'Bearer realm="aap" error="invalid_token"'
