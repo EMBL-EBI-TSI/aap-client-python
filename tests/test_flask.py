@@ -131,9 +131,12 @@ def test_malformed_token(flask_server_client):
     status, _, _ = request(client, u'get', u'/optional', token)
     assert status == 200
 
-def test_invalid_request(flask_server_client):
+invalid_auth_headers = [b'foo', b'foo bar', b'Bearer ']
+@pytest.mark.parametrize('token',
+                         invalid_auth_headers,
+                         ids=[b.decode('utf-8') for b in invalid_auth_headers])
+def test_invalid_request(token, flask_server_client):
     _, client = flask_server_client
-    token = b'foo'
 
     status, _, _ = request(client, u'get', u'/required', token, custom_auth=True)
     assert status == 400
