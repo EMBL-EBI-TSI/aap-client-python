@@ -18,7 +18,6 @@ except ImportError:
 from aap_client.tokens import decode_token
 from aap_client.flask.config import CONFIG
 from aap_client.flask.exceptions import (
-    FlaskException,
     InvalidRequestError,
     InvalidTokenError,
     NoAuthenticationError
@@ -51,7 +50,9 @@ def jwt_optional(func):
     def wrapper(*args, **kwargs):  # pylint: disable=C0111
         try:
             _load_jwt_to_context()
-        except FlaskException:
+        except NoAuthenticationError:
+            pass
+        except InvalidTokenError:
             pass
         return func(*args, **kwargs)
     return wrapper
@@ -85,7 +86,7 @@ def _decode_from_request():
     # verify that the header is in the correct format
     # Authorization: Bearer <JWT>
     splitted_header = auth_header.split()
-    if len(splitted_header) != 2 and splitted_header[0] == u'Bearer:':
+    if len(splitted_header) != 2 and not auth_header.startswith(u'Bearer '):
         raise InvalidRequestError(u'Invalid Authorization header, '
                                   u'expected \'Bearer <JWT>\'')
 

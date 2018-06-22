@@ -61,7 +61,7 @@ def invalid_token_payload(key_public_private):
     token = jwt.encode(payload, private, algorithm=u'RS256')
     return token, payload
 
-def request(client, verb, url, token=None, data=None):
+def request(client, verb, url, token=None, data=None, custom_auth=False):
     kwargs = dict()
 
     if verb == u'post':
@@ -70,8 +70,12 @@ def request(client, verb, url, token=None, data=None):
         request = client.get
 
     if token is not None:
+        if not custom_auth:
+            a_header = u'Bearer {}'.format(token.decode('utf-8'))
+        else:
+            a_header = token.decode('utf-8')
         kwargs[u'headers'] =\
-            {u'Authorization': u'Bearer {}'.format(token.decode('utf-8'))}
+            {u'Authorization': a_header}
     if data is not None:
         kwargs[u'data'] = data
 
@@ -83,39 +87,59 @@ def request(client, verb, url, token=None, data=None):
 
     status_code = response.status_code
     data = json.loads(response.get_data(as_text=True))
+    headers = response.headers
 
-    return status_code, data
+    return status_code, data, headers
 
 def test_no_token(flask_server_client):
     _, client = flask_server_client
 
-    status, _ = request(client, u'get', u'/required')
+    status, _, _ = request(client, u'get', u'/required')
     assert status == 401
 
-    status, _ = request(client, u'get', u'/optional')
+    status, _, _ = request(client, u'get', u'/optional')
     assert status == 200
 
 def test_valid_claims(flask_server_client, valid_token_payload):
     _, client = flask_server_client
     token, _ = valid_token_payload
 
-    status, message = request(client, u'get', u'/required', token)
+    status, message, _ = request(client, u'get', u'/required', token)
     assert message == {u'message': u'required'}
     assert status == 200
 
-    status, _ = request(client, u'get', u'/optional', token)
+    status, _, _ = request(client, u'get', u'/optional', token)
     assert status == 200
 
 def test_invalid_claims(flask_server_client, invalid_token_payload):
     _, client = flask_server_client
     token, _ = invalid_token_payload
 
-    status, message = request(client, u'get', u'/required', token)
-    assert u'expired' in message[u'message']
+    status, _, _ = request(client, u'get', u'/required', token)
     assert status == 401
 
-    status, _ = request(client, u'get', u'/optional', token)
+    status, _, _ = request(client, u'get', u'/optional', token)
     assert status == 200
+
+def test_malformed_token(flask_server_client):
+    _, client = flask_server_client
+    token = b'foo'
+
+    status, _, _ = request(client, u'get', u'/required', token)
+    assert status == 401
+
+    status, _, _ = request(client, u'get', u'/optional', token)
+    assert status == 200
+
+def test_invalid_request(flask_server_client):
+    _, client = flask_server_client
+    token = b'foo'
+
+    status, _, _ = request(client, u'get', u'/required', token, custom_auth=True)
+    assert status == 400
+
+    status, _, _ = request(client, u'get', u'/optional', token, custom_auth=True)
+    assert status == 400
 
 def test_get_claims(key_public_private,
                     flask_server_client,
