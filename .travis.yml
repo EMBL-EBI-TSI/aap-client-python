@@ -3,7 +3,6 @@ language: python
 cache: pip
 matrix:
   include:
-    - os: 'linux'
     - python: '2.7'
       dist: 'trusty'
     - python: '3.5'
@@ -17,6 +16,5 @@ matrix:
       dist: 'trusty'
     - python: 'pypy3'
       dist: 'trusty'
-install:
-- pip install tox-travis
+install: pip install tox-travis
 script: tox -- -v
