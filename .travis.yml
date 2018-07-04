@@ -1,14 +1,6 @@
 sudo: false
 language: python
 cache: pip
-python:
-- '2.7'
-- '3.4'
-- '3.5'
-- '3.6'
-- '3.7'
-- 'pypy'
-- 'pypy3'
 matrix:
   include:
     - os: 'linux'
@@ -21,12 +13,10 @@ matrix:
     - python: '3.7'
       dist: 'xenial'
       sudo: true
-    - python: pypy
-      dist: trusty
-      sudo: false
-    - python: pypy3
-      dist: trusty
-      sudo: false
+    - python: 'pypy'
+      dist: 'trusty'
+    - python: 'pypy3'
+      dist: 'trusty'
 install:
 - pip install tox-travis
 script: tox -- -v
