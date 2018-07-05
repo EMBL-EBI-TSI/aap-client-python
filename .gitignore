@@ -40,7 +40,7 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
-docs/aap_client/
+docs/src/_autosummary/
 
 # pyenv
 .python-version

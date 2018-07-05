@@ -1,5 +1,6 @@
 """
 Classes and functions that encode, decode and verify JWT tokens
+
 Encoded means encoded using base64, decoded tokens are json files
 """
 import jwt
