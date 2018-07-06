@@ -1,7 +1,7 @@
 """
 Extension to use AAP in a Flask server
 
-Submodules
+Modules
 ==========
 
 .. autosummary::

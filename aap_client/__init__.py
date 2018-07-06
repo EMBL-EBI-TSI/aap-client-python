@@ -1,6 +1,6 @@
 """
 
-Submodules
+Modules
 ==========
 
 .. autosummary::

@@ -7,5 +7,5 @@
 .. automodule:: {{fullname}}
 
     Members
-    =======
-
+    {{ underline }}
+    :members:
