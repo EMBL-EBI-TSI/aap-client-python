@@ -16,7 +16,7 @@ TEST_DEPS = ['pytest',
              'pytest-cov',
              'python-testdata-tsi>=0.2.0.1'] + FLASK_DEPS
 LINT_DEPS = ['pylint'] + FLASK_DEPS
-DOCS_DEPS = ['sphinx >= 1.7.5', 'sphinxcontrib-fulltoc']
+DOCS_DEPS = ['sphinx >= 1.7.5']
 
 setup(
     name='aap-client-python',
