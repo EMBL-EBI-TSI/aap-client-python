@@ -11,9 +11,12 @@ with io.open(path.join(HERE, 'README.rst'), encoding='utf-8') as f:
 INSTALL_DEPS = ['pyjwt[crypto]>=1.5.2',
                 'future>=0.16.0']
 FLASK_DEPS = ['flask>=0.12.2']
-TEST_DEPS = ['pytest',
-             'python-testdata-tsi>=0.2.0.1'] + FLASK_DEPS
 DEV_DEPS = FLASK_DEPS
+TEST_DEPS = ['pytest',
+             'pytest-cov',
+             'python-testdata-tsi>=0.2.0.1'] + FLASK_DEPS
+LINT_DEPS = ['pylint'] + FLASK_DEPS
+DOCS_DEPS = ['sphinx >= 1.7.5', 'sphinxcontrib-fulltoc']
 
 setup(
     name='aap-client-python',
@@ -73,7 +76,9 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
         'dev': DEV_DEPS,
+        'flask': FLASK_DEPS,
         'test': TEST_DEPS,
-        'flask': FLASK_DEPS
+        'docs': DOCS_DEPS,
+        'lint': LINT_DEPS
     },
 )
