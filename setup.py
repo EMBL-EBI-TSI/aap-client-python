@@ -14,9 +14,9 @@ FLASK_DEPS = ['flask>=0.12.2']
 DEV_DEPS = FLASK_DEPS
 TEST_DEPS = ['pytest',
              'pytest-cov',
-             'python-testdata-tsi>=0.2.0.1'] + FLASK_DEPS
-LINT_DEPS = ['pylint'] + FLASK_DEPS
-DOCS_DEPS = ['sphinx >= 1.7.5']
+             'python-testdata-tsi>=0.2.0.1'] + DEV_DEPS
+LINT_DEPS = ['pylint'] + DEV_DEPS
+DOCS_DEPS = ['sphinx >= 1.7.5'] + DEV_DEPS
 
 setup(
     name='aap-client-python',
