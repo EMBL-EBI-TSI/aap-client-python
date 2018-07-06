@@ -6,16 +6,9 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
-# -- Path setup --------------------------------------------------------------
+# -- Environment setup -------------------------------------------------------
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('..'))
-
+from pkg_resources import get_distribution
 
 # -- Project information -----------------------------------------------------
 
@@ -23,11 +16,10 @@ project = 'aap-client-python'
 copyright = '2018, EMBL-EBI'
 author = 'EMBL-EBI'
 
-# The short X.Y version
-version = ''
 # The full version, including alpha/beta/rc tags
-release = ''
-
+release = get_distribution(project).version
+# The short X.Y version
+version = '.'.join(release.split('.')[:2])
 
 # -- General configuration ---------------------------------------------------
 
@@ -41,7 +33,6 @@ release = ''
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.doctest',
     'sphinx.ext.coverage',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
@@ -86,7 +77,9 @@ autodoc_default_flags = [
     "private-members",
     "show-inheritance",
 ]
+
 autosummary_generate = True  # Make _autosummary files and include them
+autosummary_default_flags = ['members']
 
 napoleon_numpy_docstring = False  # Force consistency, leave only Google
 napoleon_use_rtype = False  # More legible

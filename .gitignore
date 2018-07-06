@@ -40,7 +40,7 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
-docs/src/_autosummary/
+docs/_autosummary/
 
 # pyenv
 .python-version
