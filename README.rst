@@ -1,7 +1,10 @@
 .. image:: https://travis-ci.org/EMBL-EBI-TSI/aap-client-python.svg?branch=master
-    :target: https://travis-ci.org/EMBL-EBI-TSI/aap-client-python
+   :target: https://travis-ci.org/EMBL-EBI-TSI/aap-client-python
 .. image:: https://codecov.io/gh/EMBL-EBI-TSI/aap-client-python/branch/master/graph/badge.svg
-  :target: https://codecov.io/gh/EMBL-EBI-TSI/aap-client-python
+   :target: https://codecov.io/gh/EMBL-EBI-TSI/aap-client-python
+.. image:: https://readthedocs.org/projects/aap-client-python/badge/?version=latest
+   :target: https://aap-client-python.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
 
 
 Overview
