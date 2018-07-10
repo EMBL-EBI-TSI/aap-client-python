@@ -32,26 +32,26 @@ payloadValidity = [
 
     (u'Expired',
      PayloadFactory(
-        iat=testdata.RandomInteger(0,            now() - 3600),
-        exp=testdata.RandomInteger(now() - 3600, now() - 1)
+         iat=testdata.RandomInteger(0,            now() - 3600),
+         exp=testdata.RandomInteger(now() - 3600, now() - 1)
      ), False),
 
     (u'No expiration',
      PayloadFactory(
-        exp=testdata.Constant(None)
+         exp=testdata.Constant(None)
      ), False),
 
     # Standard says iat should be a number, shouldn't care when it's issued
     # yay for sanity checks, I guess
     (u'Back to the future',
      PayloadFactory(
-        iat=testdata.RandomInteger(now() + 3600,  now() * 2),
-        exp=testdata.RandomInteger(now() * 2 + 1, now() * 3)
+         iat=testdata.RandomInteger(now() + 3600,  now() * 2),
+         exp=testdata.RandomInteger(now() * 2 + 1, now() * 3)
      ), True),
 
     (u'No issue time',
      PayloadFactory(
-        iat=testdata.Constant(None)
+         iat=testdata.Constant(None)
      ), False),
 
     (u'Untrusted issuer',
@@ -61,37 +61,27 @@ payloadValidity = [
 
     (u'Untrusted issuer',
      PayloadFactory(
-        iss=testdata.Constant(None)
-     ), True),
-
-    (u'Unknown audience',
-     PayloadFactory(
-        aud=testdata.Constant(u'portal.ebi.ac.uk')
-     ), False),
-
-    (u'Known audience',
-     PayloadFactory(
-        aud=testdata.Constant(u'webapp.ebi.ac.uk')
+         iss=testdata.Constant(None)
      ), True),
 
     (u'No subject',
      PayloadFactory(
-        sub=testdata.Constant(None)
+         sub=testdata.Constant(None)
      ), False),
 
     (u'No email',
      PayloadFactory(
-        email=testdata.Constant(None)
+         email=testdata.Constant(None)
      ), False),
 
     (u'No name',
      PayloadFactory(
-        name=testdata.Constant(None)
+         name=testdata.Constant(None)
      ), False),
 
     (u'No nickname',
      PayloadFactory(
-        nickname=testdata.Constant(None)
+         nickname=testdata.Constant(None)
      ), False),
 ]
 

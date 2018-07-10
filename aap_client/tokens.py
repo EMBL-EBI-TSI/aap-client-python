@@ -3,14 +3,12 @@ Classes and functions that encode, decode and verify JWT tokens
 
 Encoded means encoded using base64, decoded tokens are json files
 """
-import jwt
-from jwt import MissingRequiredClaimError
+from jwt import decode, MissingRequiredClaimError
 
 from aap_client.public_keys import load_from_pem, load_from_der
 
 
 _DEFAULT_CLAIMS = {u'iat', u'exp', u'sub', u'email', u'name', u'nickname'}
-
 
 
 class TokenDecoder(object):  # pylint: disable=too-few-public-methods
@@ -30,6 +28,7 @@ class TokenDecoder(object):  # pylint: disable=too-few-public-methods
             required_claims = []
 
         self._required_claims = required_claims
+
         try:
             key = load_from_pem(filename)
         except ValueError:
@@ -37,17 +36,14 @@ class TokenDecoder(object):  # pylint: disable=too-few-public-methods
 
         self._key = key
 
-    def decode(self, serialized_token, audience=None):
+    def decode(self, serialized_token):
         """ Decodes and verifies a token using a determined audience"""
-        return decode_token(serialized_token, self._key,
-                            required_claims=self._required_claims,
-                            audience=audience)
+        return verify_token(serialized_token, self._key,
+                            required_claims=self._required_claims)
 
 
-# Functions that can be used when an object to store the keys cannot be
-
-def decode_token(serialized_token, public_key,
-                 required_claims=None, audience=None):
+def verify_token(serialized_token, public_key,
+                 required_claims=None):
     """
     Decodes and verifies a token given a certificate, the obligatory
     claims and a determined audience.
@@ -56,9 +52,8 @@ def decode_token(serialized_token, public_key,
         required_claims = []
 
     required_claims = set(required_claims).union(_DEFAULT_CLAIMS)
-    payload = jwt.decode(serialized_token, public_key,
-                         audience=audience,
-                         algorithms=[u'RS256'])
+    payload = decode(serialized_token, public_key,
+                     algorithms=[u'RS256'])
     for claim in required_claims:
         if payload.get(claim) is None:
             raise MissingRequiredClaimError(claim)

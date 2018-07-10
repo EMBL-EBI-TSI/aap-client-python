@@ -40,13 +40,8 @@ def test_token_validation(name, generator, valid, private_key, decoder):
     for payload in generator.generate(10):
         token = jwt.encode(payload, private_key, algorithm=u'RS256')
 
-        def decode(token, payload):
-            # don't request audience if there isn't any in the token
-            aud = u'webapp.ebi.ac.uk' if u'aud' in payload else None
-            decoder.decode(token, audience=aud)
-
         if valid:
-            decode(token, payload)
+            decoder.decode(token)
         else:
             with pytest.raises(Exception) as e_info:
-                decode(token, payload)
+                decoder.decode(token)

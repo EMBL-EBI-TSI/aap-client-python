@@ -15,7 +15,7 @@ try:
 except ImportError:
     from flask import _request_ctx_stack as ctx_stack
 
-from aap_client.tokens import decode_token
+from aap_client.tokens import verify_token
 from aap_client.flask.config import CONFIG
 from aap_client.flask.exceptions import (
     InvalidRequestError,
@@ -93,7 +93,7 @@ def _decode_from_request():
     jwt = splitted_header[1]
 
     try:
-        return decode_token(jwt, CONFIG.public_key)
+        return verify_token(jwt, CONFIG.public_key)
     except DecodeError as err:
         raise_with_traceback(
             InvalidTokenError(u'Unable to decode token: {}'.format(err)))
