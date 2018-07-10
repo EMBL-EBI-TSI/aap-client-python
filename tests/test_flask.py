@@ -8,10 +8,10 @@ import jwt
 
 from flask import Flask, jsonify
 
-from aap_client.crypto_files import (
-    load_public_from_pem,
-    _load_private_from_pem
-)
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.serialization import load_pem_private_key
+
+from aap_client.public_keys import load_from_pem
 from aap_client.flask.client import JWTClient
 from aap_client.flask.decorators import jwt_required, jwt_optional
 
@@ -19,10 +19,18 @@ from tests.payload_gen import validPayloads, invalidPayloads
 
 @pytest.fixture
 def key_public_private():
+    def load_private(pem_filename, secret=None):
+        with open(pem_filename, 'rb') as pem_file:
+            private_key = load_pem_private_key(
+                pem_file.read(),
+                password=secret,
+                backend=default_backend())
+        return private_key
+
     folder = path.dirname(path.realpath(__file__)) +\
              u'/../resources/crypto_files/'
-    private = _load_private_from_pem(folder + u'disposable.private.pem')
-    public = load_public_from_pem(folder + u'disposable.public.pem')
+    private = load_private(folder + u'disposable.private.pem')
+    public = load_from_pem(folder + u'disposable.public.pem')
     return public, private
 
 @pytest.fixture
