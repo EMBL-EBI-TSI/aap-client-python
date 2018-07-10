@@ -6,7 +6,7 @@ Encoded means encoded using base64, decoded tokens are json files
 import jwt
 from jwt import MissingRequiredClaimError
 
-from aap_client.crypto_files import load_public_from_x509
+from aap_client.crypto_files import load_public_from_pem
 
 
 _DEFAULT_CLAIMS = {u'iat', u'exp', u'sub', u'email', u'name', u'nickname'}
@@ -29,7 +29,7 @@ class TokenDecoder(object):  # pylint: disable=too-few-public-methods
             required_claims = []
 
         self._required_claims = required_claims
-        self._key = load_public_from_x509(filename)
+        self._key = load_public_from_pem(filename)
 
     def decode(self, serialized_token, audience=None):
         """ Decodes and verifies a token using a determined audience"""

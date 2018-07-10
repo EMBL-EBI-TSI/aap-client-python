@@ -9,8 +9,8 @@ import jwt
 from flask import Flask, jsonify
 
 from aap_client.crypto_files import (
-    load_public_from_x509,
-    load_private_from_pem
+    load_public_from_pem,
+    _load_private_from_pem
 )
 from aap_client.flask.client import JWTClient
 from aap_client.flask.decorators import jwt_required, jwt_optional
@@ -21,8 +21,8 @@ from tests.payload_gen import validPayloads, invalidPayloads
 def key_public_private():
     folder = path.dirname(path.realpath(__file__)) +\
              u'/../resources/crypto_files/'
-    private = load_private_from_pem(folder + u'disposable.private.pem')
-    public = load_public_from_x509(folder + u'disposable.public.pem')
+    private = _load_private_from_pem(folder + u'disposable.private.pem')
+    public = load_public_from_pem(folder + u'disposable.public.pem')
     return public, private
 
 @pytest.fixture
