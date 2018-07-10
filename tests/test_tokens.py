@@ -4,7 +4,7 @@ import pytest
 
 import jwt
 
-from aap_client.crypto_files import load_private_from_pem
+from aap_client.crypto_files import _load_private_from_pem
 from aap_client.tokens import TokenDecoder
 
 from tests.payload_gen import payloadValidity
@@ -12,7 +12,7 @@ from tests.payload_gen import payloadValidity
 
 FOLDER = path.dirname(path.realpath(__file__)) +\
        u'/../resources/crypto_files/'
-KEY = load_private_from_pem(FOLDER + u'disposable.private.pem')
+KEY = _load_private_from_pem(FOLDER + u'disposable.private.pem')
 DECODER = TokenDecoder(FOLDER + u'disposable.public.pem')
 
 
