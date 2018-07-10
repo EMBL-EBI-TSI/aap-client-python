@@ -22,6 +22,7 @@ class PayloadFactory(testdata.DictFactory):
     email = testdata.FakeDataFactory(u'email')
     name = testdata.FakeDataFactory(u'name')
     nickname = testdata.HashHexDigestFactory(hashlib.sha256)
+    domains = testdata.Constant([])
 
 
 payloadValidity = [

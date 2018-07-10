@@ -26,9 +26,14 @@ def private_key():
 
     return _load_private(FOLDER + u'disposable.private.pem')
 
-@pytest.fixture(params=[u'disposable.public.pem', u'disposable.public.der'])
+DECODER_CONFIGS = [(u'disposable.public.pem', ['domains']),
+                   (u'disposable.public.pem', None),
+                   (u'disposable.public.der', None)]
+
+@pytest.fixture(params=DECODER_CONFIGS)
 def decoder(request):
-    return TokenDecoder(FOLDER + request.param)
+    cert_filename, required_claims = request.param
+    return TokenDecoder(FOLDER + cert_filename, required_claims=required_claims)
 
 @pytest.mark.parametrize('name,generator,valid', payloadValidity, ids=[name for (name, _, _) in payloadValidity])
 def test_token_validation(name, generator, valid, private_key, decoder):
