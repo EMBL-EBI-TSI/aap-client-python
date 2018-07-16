@@ -8,5 +8,5 @@ Modules
 
     aap_client.flask
     aap_client.tokens
-    aap_client.crypto_files
+    aap_client.public_keys
 """
