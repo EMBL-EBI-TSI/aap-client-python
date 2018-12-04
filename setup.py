@@ -14,7 +14,7 @@ FLASK_DEPS = ['flask>=0.12.2']
 DEV_DEPS = FLASK_DEPS
 TEST_DEPS = ['pytest',
              'pytest-cov',
-             'python-testdata-tsi>=0.2.0.1'] + DEV_DEPS
+             'fake-gen>=1.0.0b1'] + DEV_DEPS
 LINT_DEPS = ['pylint'] + DEV_DEPS
 DOCS_DEPS = ['sphinx >= 1.7.5', 'sphinxcontrib-fulltoc'] + DEV_DEPS
 
