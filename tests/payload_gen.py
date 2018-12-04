@@ -6,23 +6,23 @@ from datetime import datetime
 
 from builtins import int
 
-import testdata
+import fake_gen
 
 
 def now():
     return timegm(datetime.utcnow().utctimetuple())
 
 
-class PayloadFactory(testdata.DictFactory):
-    iat = testdata.Constant(now())
-    exp = testdata.RandomInteger(int(now() + 15), int(now() * 2))
-    iss = testdata.Constant(u'aap.ebi.ac.uk')
-    sub = testdata.Sum([testdata.Constant(u'usr-'),
-                        testdata.HashHexDigestFactory(hashlib.md5)])
-    email = testdata.FakeDataFactory(u'email')
-    name = testdata.FakeDataFactory(u'name')
-    nickname = testdata.HashHexDigestFactory(hashlib.sha256)
-    domains = testdata.Constant([])
+class PayloadFactory(fake_gen.DictFactory):
+    iat = fake_gen.Constant(now())
+    exp = fake_gen.RandomInteger(int(now() + 15), int(now() * 2))
+    iss = fake_gen.Constant(u'aap.ebi.ac.uk')
+    sub = fake_gen.Sum([fake_gen.Constant(u'usr-'),
+                        fake_gen.HashHexDigestFactory(hashlib.md5)])
+    email = fake_gen.FakeDataFactory(u'email')
+    name = fake_gen.FakeDataFactory(u'name')
+    nickname = fake_gen.HashHexDigestFactory(hashlib.sha256)
+    domains = fake_gen.Constant([])
 
 
 payloadValidity = [
@@ -32,56 +32,56 @@ payloadValidity = [
 
     (u'Expired',
      PayloadFactory(
-         iat=testdata.RandomInteger(0,            now() - 3600),
-         exp=testdata.RandomInteger(now() - 3600, now() - 1)
+         iat=fake_gen.RandomInteger(0,            now() - 3600),
+         exp=fake_gen.RandomInteger(now() - 3600, now() - 1)
      ), False),
 
     (u'No expiration',
      PayloadFactory(
-         exp=testdata.Constant(None)
+         exp=fake_gen.Constant(None)
      ), False),
 
     # Standard says iat should be a number, shouldn't care when it's issued
     # yay for sanity checks, I guess
     (u'Back to the future',
      PayloadFactory(
-         iat=testdata.RandomInteger(now() + 3600,  now() * 2),
-         exp=testdata.RandomInteger(now() * 2 + 1, now() * 3)
+         iat=fake_gen.RandomInteger(now() + 3600,  now() * 2),
+         exp=fake_gen.RandomInteger(now() * 2 + 1, now() * 3)
      ), True),
 
     (u'No issue time',
      PayloadFactory(
-         iat=testdata.Constant(None)
+         iat=fake_gen.Constant(None)
      ), False),
 
     (u'Untrusted issuer',
      PayloadFactory(
-         iss=testdata.FakeDataFactory(u'address')
+         iss=fake_gen.FakeDataFactory(u'address')
      ), True),
 
     (u'Untrusted issuer',
      PayloadFactory(
-         iss=testdata.Constant(None)
+         iss=fake_gen.Constant(None)
      ), True),
 
     (u'No subject',
      PayloadFactory(
-         sub=testdata.Constant(None)
+         sub=fake_gen.Constant(None)
      ), False),
 
     (u'No email',
      PayloadFactory(
-         email=testdata.Constant(None)
+         email=fake_gen.Constant(None)
      ), False),
 
     (u'No name',
      PayloadFactory(
-         name=testdata.Constant(None)
+         name=fake_gen.Constant(None)
      ), False),
 
     (u'No nickname',
      PayloadFactory(
-         nickname=testdata.Constant(None)
+         nickname=fake_gen.Constant(None)
      ), False),
 ]
 
